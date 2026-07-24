@@ -4,6 +4,7 @@ import './index.css';
 import './styles/global.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
+import './styles/global.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
