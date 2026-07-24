@@ -1,0 +1,15 @@
+body {
+    padding-top: 56px;
+    background-color: #f8f9fa;
+  }
+  .card {
+    border-radius: 12px;
+    transition: 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  .table th {
+    border-top: none;
+  }
