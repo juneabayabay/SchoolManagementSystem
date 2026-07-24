@@ -8,12 +8,20 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const logout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('username');
+    delete api.defaults.headers.common['Authorization'];
+    setUser(null);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     if (token) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       getUserProfile()
-        .then(res => setUser(res.data))
+        .then((res) => setUser(res.data))
         .catch(() => logout())
         .finally(() => setLoading(false));
     } else {
@@ -25,17 +33,11 @@ export const AuthProvider = ({ children }) => {
     const res = await loginService(username, password);
     localStorage.setItem('access_token', res.data.access);
     localStorage.setItem('refresh_token', res.data.refresh);
+    localStorage.setItem('username', username);
     api.defaults.headers.common['Authorization'] = `Bearer ${res.data.access}`;
     const profile = await getUserProfile();
     setUser(profile.data);
     return profile;
-  };
-
-  const logout = () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    delete api.defaults.headers.common['Authorization'];
-    setUser(null);
   };
 
   return (

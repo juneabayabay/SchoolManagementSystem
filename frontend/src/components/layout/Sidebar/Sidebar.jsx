@@ -1,35 +1,29 @@
 import { NavLink } from 'react-router-dom';
 
-const Sidebar = () => {
-  const linkStyle = ({ isActive }) => ({
-    display: 'block',
-    padding: '10px 20px',
-    color: isActive ? '#fff' : '#adb5bd',
-    backgroundColor: isActive ? '#0d6efd' : 'transparent',
-    textDecoration: 'none',
-    borderRadius: '8px',
-    marginBottom: '5px',
-  });
+const links = [
+  { to: '/', label: 'Dashboard', icon: '◆', end: true },
+  { to: '/students', label: 'Students', icon: '◎' },
+  { to: '/teachers', label: 'Teachers', icon: '◇' },
+  { to: '/subjects', label: 'Subjects', icon: '▣' },
+  { to: '/enrollments', label: 'Enrollments', icon: '▤' },
+];
 
-  return (
-    <div
-      className="bg-dark vh-100 p-3"
-      style={{
-        width: '250px',
-        position: 'fixed',
-        top: '56px',
-        left: 0,
-        overflowY: 'auto',
-      }}
-    >
-      <h5 className="text-white mb-4">Navigation</h5>
-      <NavLink to="/" style={linkStyle}>📊 Dashboard</NavLink>
-      <NavLink to="/students" style={linkStyle}>👨‍🎓 Students</NavLink>
-      <NavLink to="/teachers" style={linkStyle}>👩‍🏫 Teachers</NavLink>
-      <NavLink to="/subjects" style={linkStyle}>📚 Subjects</NavLink>
-      <NavLink to="/enrollments" style={linkStyle}>📝 Enrollments</NavLink>
-    </div>
-  );
-};
+const Sidebar = ({ open, onNavigate }) => (
+  <aside className={`app-sidebar${open ? ' open' : ''}`} aria-label="Main navigation">
+    <div className="app-sidebar-title">Menu</div>
+    {links.map((link) => (
+      <NavLink
+        key={link.to}
+        to={link.to}
+        end={link.end}
+        className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
+        onClick={onNavigate}
+      >
+        <span className="nav-icon" aria-hidden="true">{link.icon}</span>
+        {link.label}
+      </NavLink>
+    ))}
+  </aside>
+);
 
 export default Sidebar;

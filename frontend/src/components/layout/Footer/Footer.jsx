@@ -1,8 +1,7 @@
-const Footer = () => {
-    return (
-      <footer className="text-center text-muted mt-4">
-        <small>&copy; {new Date().getFullYear()} School Management System</small>
-      </footer>
-    );
-  };
-  export default Footer;
+const Footer = () => (
+  <footer className="app-footer">
+    © {new Date().getFullYear()} SchoolMS — School Management System
+  </footer>
+);
+
+export default Footer;
